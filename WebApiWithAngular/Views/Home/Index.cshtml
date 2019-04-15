@@ -1,8 +1,19 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <ol>
+        <li ng-repeat="item in categories">
+            {{item.name}}
+        </li>
+    </ol>
 </div>
+<script>
+    var app = angular.module("myApp", []);
+    app.controller("myCtrl", function ($scope, $http) {
+        $http.get("api/Category").then(function (response) {
+            $scope.categories = response.data;
+        })
+    })
+</script>
